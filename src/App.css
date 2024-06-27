@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
 .sectionForm {
-    background: #aaa;
-    height: 100%;
+    background: #009688;
+    min-height: 100vh;
+    font-family: "Outfit", sans-serif;
 }
 
 .sectionForm .container {
@@ -38,4 +41,38 @@
 
 .sectionForm .container form input::placeholder {
     color: #000;
+}
+
+.sectionForm .d-flex {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.sectionForm .d-flex .todoCard {
+    border: 2px solid #eee;
+    padding: 14px;
+    border-radius: 7px;
+    color: #fff;
+    width: calc(33.33% - 13.3px);
+}
+
+.sectionForm .d-flex .todoCard div {
+    font-size: 20px;
+    padding-left: 5px;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+}
+
+.sectionForm .d-flex .todoCard div:nth-child(3) {
+    font-size: 16px;
+}
+
+.sectionForm .d-flex .todoCard div+div {
+    margin-top: 8px;
 }
