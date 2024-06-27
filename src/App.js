@@ -13,12 +13,12 @@ const App = () => {
     });
     const [formError, setFormError] = useState("");
     const [todos, setTodos] = useState([])
+    const [editedId, setEditedId] = useState(null)
 
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setFormValue((prev) => ({ ...prev, [name]: value }));
-
     };
 
     const formSubmit = (event) => {
@@ -28,9 +28,30 @@ const App = () => {
         }
         else {
             setFormError("")
-            setTodos((prev) => ([...prev, formValue]))
+            setTodos((prev) => ([...prev, { ...formValue, id: Date.now() }]))
+
+            setFormValue("")
         }
     };
+
+
+    const editTask = (id) => () => {
+        setEditedId(id);
+        const updatedTask = todos.map((todo) => {
+            setFormValue(todo.name)
+            return todo.id === editedId ? { ...todo, name: todo.name, email: todo.email, discription: todo.discription } : todo
+
+        })
+        console.log(updatedTask);
+        // setTodos(updatedTask)
+    }
+
+    const deleteTask = (id) => () => {
+        const newTodos = todos.filter((curElem) => {
+            return curElem.id !== id
+        })
+        setTodos(newTodos);
+    }
 
     useEffect(() => {
         localStorage.setItem("todos", JSON.stringify(todos))
@@ -39,6 +60,7 @@ const App = () => {
     useEffect(() => {
         setTodos(todoData)
     }, [window])
+
 
     return (
         <div className="sectionForm">
@@ -52,17 +74,21 @@ const App = () => {
                 </form>
                 <div className="d-flex">
                     {
-                        todos.length > 0 && todos.map((elem, index) => {
-                            const { name, email, discription } = elem
+                        todos.length > 0 ? todos.map((elem, index) => {
+                            const { name, email, discription, id } = elem
                             return (
                                 <div className="todoCard" key={index}>
                                     <div>{name}</div>
                                     <div>{email}</div>
                                     <div>{discription}</div>
-                                    
+                                    <div className="d-flex">
+                                        <button onClick={editTask(id)}>Edit</button>
+                                        <button onClick={deleteTask(id)}>Delete</button>
+                                    </div>
                                 </div>
                             )
-                        })
+                        }) : <><h3>Please Add Your Tasks</h3></>
+
                     }
                     {
                         todos.length <= 0 && todos === null && <h1>No Found</h1>
