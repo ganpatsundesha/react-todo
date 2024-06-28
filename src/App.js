@@ -15,6 +15,8 @@ const App = () => {
     const [todos, setTodos] = useState([])
     const [editedId, setEditedId] = useState(null)
     const [isEdited, setIsEdited] = useState(false)
+    const time = new Date()
+    const fullTime = `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}-${time.getDate().toString().padStart(2, '0')}/${(time.getMonth() + 1).toString().padStart(2, '0')}/${time.getFullYear()}`
 
     const handleChange = (e) => {
         const name = e.target.name;
@@ -34,7 +36,7 @@ const App = () => {
                         setIsEdited(false)
                         setEditedId(null)
                         setFormValue("")
-                        return { ...curItem, name: formValue.name, email: formValue.email, discription: formValue.discription };
+                        return { ...curItem, name: formValue.name, email: formValue.email, discription: formValue.discription, time: fullTime, edit: true };
                     }
                     else {
                         return curItem;
@@ -44,7 +46,7 @@ const App = () => {
         }
         else {
             setFormError("")
-            setTodos((prev) => ([...prev, { ...formValue, id: Date.now() }]))
+            setTodos((prev) => ([...prev, { ...formValue, id: Date.now(), time: fullTime, edit: false }]))
             setFormValue("")
         }
     };
@@ -64,6 +66,18 @@ const App = () => {
             return curElem.id !== id
         })
         setTodos(newTodos);
+    }
+
+    const pinTask = (id) => () => {
+        // const pinTask = todos.find((curTask) => {
+        //     return curTask.id == id
+        // })
+        // const pinIndex = todos.indexOf(pinTask);
+        // todos.splice(0, 0, todos.splice(pinTask, pinIndex))
+        // todos.splice(pinIndex, 1)
+        // setTodos(todos.unshift(pinTask))
+
+        // console.log(todos);
     }
 
     useEffect(() => {
@@ -87,15 +101,18 @@ const App = () => {
                 <div className="d-flex">
                     {
                         todos.length > 0 ? todos.map((elem, index) => {
-                            const { name, email, discription, id } = elem
+                            const { name, email, discription, id, time, edit } = elem
                             return (
                                 <div className="todoCard" key={index}>
+                                    {edit && <span>{edit ? "Edited" : ""}</span>}
                                     <div>{name}</div>
                                     <div>{email}</div>
                                     <div>{discription}</div>
+                                    <div>{time} {edit && <span>({edit ? "Last Edit Time" : ""})</span>}</div>
                                     <div className="d-flex">
                                         <button onClick={editTask(id)}>Edit</button>
                                         <button onClick={deleteTask(id)}>Delete</button>
+                                        <button onClick={pinTask(id)}>Pin</button>
                                     </div>
                                 </div>
                             )

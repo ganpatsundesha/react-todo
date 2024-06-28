@@ -20,9 +20,13 @@
 }
 
 .sectionForm .container form p {
-    color: red;
+    color: #fff;
     font-size: 14px;
     font-family: "outfit";
+    background: red;
+    padding: 5px 10px;
+    display: inline-block;
+    width: max-content;
 }
 
 .sectionForm .container form input {
@@ -50,6 +54,7 @@
     width: 100%;
     flex-wrap: wrap;
     margin-top: 40px;
+    padding-bottom: 20px;
 }
 
 .sectionForm .d-flex .todoCard {
@@ -60,6 +65,7 @@
     background: #fff;
     width: calc(33.33% - 13.3px);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    position: relative;
 }
 
 .sectionForm .d-flex .todoCard button {
@@ -72,6 +78,17 @@
     cursor: pointer;
     /* margin: 10px; */
 
+}
+
+.sectionForm .d-flex .todoCard span {
+    position: absolute;
+    top: -14px;
+    right: -10px;
+    color: #fff;
+    font-size: 14px;
+    background: #000;
+    padding: 5px 10px;
+    border-radius: 4px;
 }
 
 .sectionForm .d-flex .todoCard button:hover {
@@ -87,12 +104,21 @@
     overflow: hidden;
 }
 
+.sectionForm .d-flex .todoCard div span {
+    font-size: 14px;
+    color: #000;
+    position: unset;
+    background: none;
+    padding: 0;
+}
+
 .sectionForm .d-flex .todoCard .d-flex {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
+    padding-bottom: 0;
 }
 
 .sectionForm .d-flex .todoCard div:nth-child(3) {
@@ -115,7 +141,6 @@
 
 @media (max-width: 600px) {
     .sectionForm .d-flex {
-        padding-bottom: 20px;
         margin-top: 20px;
     }
 
