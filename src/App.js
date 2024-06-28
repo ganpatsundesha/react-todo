@@ -14,6 +14,7 @@ const App = () => {
     const [formError, setFormError] = useState("");
     const [todos, setTodos] = useState([])
     const [editedId, setEditedId] = useState(null)
+    const [isEdited, setIsEdited] = useState(false)
 
     const handleChange = (e) => {
         const name = e.target.name;
@@ -26,24 +27,36 @@ const App = () => {
         if (formValue.name === "" || formValue.email === "" || formValue.discription === "") {
             setFormError("Something is missing")
         }
+        else if (isEdited) {
+            setTodos(
+                todos.map((curItem) => {
+                    if (curItem.id === editedId) {
+                        setIsEdited(false)
+                        setEditedId(null)
+                        setFormValue("")
+                        return { ...curItem, name: formValue.name, email: formValue.email, discription: formValue.discription };
+                    }
+                    else {
+                        return curItem;
+                    }
+                })
+            )
+        }
         else {
             setFormError("")
             setTodos((prev) => ([...prev, { ...formValue, id: Date.now() }]))
-
             setFormValue("")
         }
     };
 
-
     const editTask = (id) => () => {
-        setEditedId(id);
-        const updatedTask = todos.map((todo) => {
-            setFormValue(todo.name)
-            return todo.id === editedId ? { ...todo, name: todo.name, email: todo.email, discription: todo.discription } : todo
-
+        const editData = todos.find((curItem) => {
+            return curItem.id === id
         })
-        console.log(updatedTask);
-        // setTodos(updatedTask)
+        setFormValue(editData)
+        setIsEdited(true)
+        setEditedId(id)
+
     }
 
     const deleteTask = (id) => () => {
@@ -60,7 +73,6 @@ const App = () => {
     useEffect(() => {
         setTodos(todoData)
     }, [window])
-
 
     return (
         <div className="sectionForm">

@@ -106,3 +106,20 @@
 .sectionForm .d-flex h3 {
     color: #fff;
 }
+
+@media (max-width: 991px) {
+    .sectionForm .d-flex .todoCard {
+        width: calc(50% - 10px);
+    }
+}
+
+@media (max-width: 600px) {
+    .sectionForm .d-flex {
+        padding-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .sectionForm .d-flex .todoCard {
+        width: 100%;
+    }
+}
