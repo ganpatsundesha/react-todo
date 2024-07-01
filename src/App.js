@@ -68,16 +68,10 @@ const App = () => {
         setTodos(newTodos);
     }
 
-    const pinTask = (id) => () => {
-        // const pinTask = todos.find((curTask) => {
-        //     return curTask.id == id
-        // })
-        // const pinIndex = todos.indexOf(pinTask);
-        // todos.splice(0, 0, todos.splice(pinTask, pinIndex))
-        // todos.splice(pinIndex, 1)
-        // setTodos(todos.unshift(pinTask))
-
-        // console.log(todos);
+    const pinTask = (elem) => () => {
+        const pinItem = todos.filter((curItem) => curItem.id !== elem.id)
+        pinItem.unshift({ ...elem, pin: true })
+        setTodos(pinItem)
     }
 
     useEffect(() => {
@@ -101,18 +95,19 @@ const App = () => {
                 <div className="d-flex">
                     {
                         todos.length > 0 ? todos.map((elem, index) => {
-                            const { name, email, discription, id, time, edit } = elem
+                            const { name, email, discription, id, time, edit, pin } = elem
                             return (
                                 <div className="todoCard" key={index}>
                                     {edit && <span>{edit ? "Edited" : ""}</span>}
                                     <div>{name}</div>
                                     <div>{email}</div>
                                     <div>{discription}</div>
-                                    <div>{time} {edit && <span>({edit ? "Last Edit Time" : ""})</span>}</div>
+                                    <div>{time} <span>({edit ? "Last Edit Time" : "Add Time"})</span></div>
+                                    {pin && <div className="pin">Pin</div>}
                                     <div className="d-flex">
                                         <button onClick={editTask(id)}>Edit</button>
                                         <button onClick={deleteTask(id)}>Delete</button>
-                                        <button onClick={pinTask(id)}>Pin</button>
+                                        <button onClick={pinTask(elem)}>{pin ? "Unpin" : "Pin"}</button>
                                     </div>
                                 </div>
                             )

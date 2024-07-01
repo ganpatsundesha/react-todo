@@ -104,6 +104,17 @@
     overflow: hidden;
 }
 
+.sectionForm .d-flex .todoCard div.pin {
+    position: absolute;
+    top: -20px;
+    left: -14px;
+    background: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 14px;
+}
+
 .sectionForm .d-flex .todoCard div span {
     font-size: 14px;
     color: #000;
