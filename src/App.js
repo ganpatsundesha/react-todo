@@ -72,6 +72,12 @@ const App = () => {
         const pinItem = todos.filter((curItem) => curItem.id !== elem.id)
         pinItem.unshift({ ...elem, pin: true })
         setTodos(pinItem)
+
+        if (elem.pin === true) {
+            const unpinItem = todos.filter((curItem) => curItem.id !== elem.id)
+            unpinItem.push({ ...elem, pin: false })
+            setTodos(unpinItem)
+        }
     }
 
     useEffect(() => {
