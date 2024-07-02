@@ -15,6 +15,9 @@ const App = () => {
     const [todos, setTodos] = useState([])
     const [editedId, setEditedId] = useState(null)
     const [isEdited, setIsEdited] = useState(false)
+    const [searchItem, setSearchItem] = useState('')
+    const [filteredUsers, setFilteredUsers] = useState()
+
     const time = new Date()
     const fullTime = `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}-${time.getDate().toString().padStart(2, '0')}/${(time.getMonth() + 1).toString().padStart(2, '0')}/${time.getFullYear()}`
 
@@ -80,8 +83,19 @@ const App = () => {
         }
     }
 
+    const handleSearch = (e) => {
+        const searchName = e.target.value
+        setSearchItem(searchName)
+
+        const filterdItem = todos.filter((filItem) => {
+            return filItem.name.toLowerCase().includes(searchName.toLowerCase())
+        })
+        setFilteredUsers(filterdItem)
+    }
+
     useEffect(() => {
         localStorage.setItem("todos", JSON.stringify(todos))
+        setFilteredUsers(todos)
     }, [todos])
 
     useEffect(() => {
@@ -98,9 +112,12 @@ const App = () => {
                     <input type="text" placeholder="Discription" value={formValue.discription || ""} name="discription" onChange={handleChange} />
                     <input type="submit" value="Submit" />
                 </form>
+                {
+                    todos.length > 1 ? <input type="text" placeholder="Search by Title" value={searchItem || ""} onChange={handleSearch} className="searchBox" /> : ""
+                }
                 <div className="d-flex">
                     {
-                        todos.length > 0 ? todos.map((elem, index) => {
+                        filteredUsers?.length > 0 ? filteredUsers.map((elem, index) => {
                             const { name, email, discription, id, time, edit, pin } = elem
                             return (
                                 <div className="todoCard" key={index}>
@@ -108,7 +125,7 @@ const App = () => {
                                     <div>{name}</div>
                                     <div>{email}</div>
                                     <div>{discription}</div>
-                                    <div>{time} <span>({edit ? "Last Edit Time" : "Add Time"})</span></div>
+                                    <div>{time} <span>{edit && "(Last Edited Time)"}</span></div>
                                     {pin && <div className="pin">Pin</div>}
                                     <div className="d-flex">
                                         <button onClick={editTask(id)}>Edit</button>

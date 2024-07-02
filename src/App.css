@@ -144,6 +144,15 @@
     color: #fff;
 }
 
+.sectionForm .searchBox {
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    width: 320px;
+    padding: 10px;
+    margin-left: calc(100% - 320px);
+}
+
 @media (max-width: 991px) {
     .sectionForm .d-flex .todoCard {
         width: calc(50% - 10px);
