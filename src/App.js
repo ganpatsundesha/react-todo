@@ -134,7 +134,11 @@ const App = () => {
                                     </div>
                                 </div>
                             )
-                        }) : <><h3>Please Add Your Tasks</h3></>
+                        }) : <>
+                            {
+                                todos.length > 0 ? <h3>Result Not Found</h3> : <h3>Please Add Your Tasks</h3>
+                            }
+                        </>
 
                     }
                     {
