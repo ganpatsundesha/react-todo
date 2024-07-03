@@ -69,6 +69,10 @@
     position: relative;
 }
 
+.sectionForm .d-flex .todoCard.none {
+    display: none;
+}
+
 .sectionForm .d-flex .todoCard button {
     padding: 8px 16px;
     font-size: 16px;
@@ -154,6 +158,12 @@
     margin-left: calc(100% - 320px);
 }
 
+.sectionForm label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+
 @media (max-width: 991px) {
     .sectionForm .d-flex .todoCard {
         width: calc(50% - 10px);
@@ -167,5 +177,12 @@
 
     .sectionForm .d-flex .todoCard {
         width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    .sectionForm .searchBox {
+        width: 100%;
+        margin-left: 0;
     }
 }
